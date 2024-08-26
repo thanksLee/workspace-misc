@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "vitaminstudio"
+version = "1.0.0"
+description = ""
+authors = ["thanksLee"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+streamlit = "^1.37.0"
+streamlit-authenticator = "^0.3.3"
+streamlit-option-menu = "^0.3.13"
+pydantic = "^2.8.2"
+sqlalchemy = "^2.0.31"
+toml = "^0.10.2"
+oracledb = "^2.3.0"
+psycopg2 = "^2.9.9"
+chardet = "^5.2.0"
+loguru = "^0.7.2"
+flake8 = "^7.1.1"
+isort = "^5.13.2"
+autopep8 = "^2.3.1"
+streamlit-tags = "^1.2.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
