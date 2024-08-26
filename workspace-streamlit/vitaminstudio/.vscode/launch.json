@@ -17,7 +17,7 @@
             "justMyCode": true
         },
         {
-            "name": "streamlit: debugger",
+            "name": "streamlit: vs-debugger",
             "type": "debugpy",
             "request": "launch",
             "module": "streamlit",
@@ -30,6 +30,23 @@
             ],
             "env": {
                 "PYTHONDONTWRITEBYTECODE": "1"
+            }
+        },
+        {
+            "name": "streamlit: s01-debugger",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "justMyCode": true,
+            "args": [
+                "run",
+                "${workspaceFolder}/src/samples/sample_01/app_sample.py",
+                "--server.port",
+                "2000"
+            ],
+            "env": {
+                "PYTHONDONTWRITEBYTECODE": "1",
+                "PYTHONPATH": "${workspaceFolder}/src/samples"
             }
         }
     ]
