@@ -1,0 +1,40 @@
+[base]
+sql_file_path = './misc/sqlscript'
+log_file_path = './volumes/logs'
+security_hash_key = 'vataminstudio'
+
+[console_logger]
+level = "DEBUG"
+format = "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level> - [{elapsed}]"
+
+[app_logger]
+rotation = "00:00"
+retention = "1 week"
+level = "DEBUG"
+format = "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level> - [{elapsed}]"
+
+[localdb]
+database_type = 'sqlite'
+database_path = './volumes/database'
+database_name = 'vitamin.db'
+
+[serverdb_base]
+database_type = 'sqlite'
+database_path = './volumes/database'
+
+[serverdb_btui]
+database_type = 'oracle'
+database_host = '49.254.92.151'
+database_port = '31521'
+database_tns = 'devorcl'
+database_id = 'devsejong'
+database_pwd = 'ds!devsejong##1'
+
+[serverdb_lblt]
+database_type = 'postgresql'
+database_host = '192.168.20.249'
+database_port = '19000'
+database_name = 'vunolblt_db'
+database_id = 'vunolbltmaster'
+database_pwd = 'vn!vunolbltmaster##!'
+database_shema = 'vunolblt'

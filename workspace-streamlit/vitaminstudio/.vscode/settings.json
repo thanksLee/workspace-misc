@@ -7,5 +7,9 @@
     "python.formatting.provider": "autopep8",
     "editor.formatOnSave": true,
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "sonarlint.connectedMode.project": {
+        "connectionId": "http-localhost-8085",
+        "projectKey": "vs-streamlit"
+    }
 }

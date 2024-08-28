@@ -1,0 +1,4 @@
+{
+    "sonarQubeUri": "http://localhost:8085",
+    "projectKey": "vs-streamlit"
+}

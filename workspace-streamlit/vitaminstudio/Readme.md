@@ -9,7 +9,7 @@
     ```shell
     poetry init
 
-    poetry add streamlit streamlit-authenticator streamlit_option_menu pydantic sqlalchemy toml oracledb psycopg2 chardet
+    poetry add streamlit streamlit-authenticator streamlit_option_menu pydantic sqlalchemy toml oracledb psycopg2 chardet streamlit_js streamlit-cookies-controller
 
     ```
 
@@ -153,10 +153,91 @@ graph TD
 
 ```
 
-# 참고
+## 4. 폴더 구조
 
--   emoji
+```
+vitaminstudio
+ ├── .streamlit                         # Streamlit 설정 파일
+ ├── docker                             # docker Dockerfile, docker-compose.yml 파일
+ ├── misc                               # 기타
+ │ └── sqlscript                        # SQL 관련 Script
+ │   └── sqlite                         # SQLite 관련 Script
+ ├── src                                # 소스
+ │ ├── app                              # VitaminStudio app 소스
+ │ │ ├── main                           # 로그인 이후의 메인
+ │ │ │ └── views                        # View 페이지 코드
+ │ │ ├── modelqc                        # 모델 품질관리
+ │ │ ├── users                          # 사용자
+ │ │ │ ├── components                   # 컴포넌트 관련 코드
+ │ │ │ ├── controllers                  # Callback 관련 정의 코드
+ │ │ │ ├── mappers                      # SQL 관련 코드 정의
+ │ │ │ ├── schemas                      # Schema 관련 코드 정의
+ │ │ │ │ ├── dto                        # Request, Response 관련 Schema 코드 정의
+ │ │ │ │ └── vo                         # SQL Result 관련 Schema 코드 정의
+ │ │ │ ├── services                     # 실제 Business 로직 관련 코드 정의
+ │ │ │ └── views                        # View 페이지 코드
+ │ │ ├── worddict                       # 데이터 표준화 관리
+ │ │ └── app_vitaminstudio.py           # main app
+ │ ├── common                           # DB와 관련하여 공통으로 사용하는 모듈
+ │ │ ├── controllers                    # Callback 관련 정의 코드
+ │ │ ├── mappers                        # SQL 관련 코드 정의
+ │ │ ├── schemas                        # Schema 관련 코드 정의
+ │ │ │ ├── dto                          # Request, Response 관련 Schema 코드 정의
+ │ │ │ └── vo                           # SQL Result 관련 Schema 코드 정의
+ │ │ └── services                       # 실제 Business 로직 관련 코드 정의
+ │ ├── core                             # 공통으로 사용하는 모듈
+ │ │ ├── configs                        # 설정과 관련된 코드 정의
+ │ │ ├── constants                      # const, enum 관련된 코드 정의
+ │ │ ├── databases                      # database connection, transaction 관련된 코드 정의
+ │ │ │ ├── local                        # local database 관련 코드 정의
+ │ │ │ └── server                       # server database 관련 코드 정의
+ │ │ ├── exceptions                     # exception 관련 코드 정의
+ │ │ ├── loggers                        # logger 관련 코드 정의
+ │ │ ├── sessions                       # streamlit session_state 관련 코드 정의
+ │ │ │ └── schemas                      # session에 담는 schema 코드 정의
+ │ │ ├── singletons                     # 메모리에 올려 놓고 사용할 코드 정의
+ │ │ └── utilities                      # utility 관련 코드 정의
+ │ ├── samples                          # 이것저것 테스트 관련된 코드 정의
+ │ └── tests                            # test 코드 정의
+ ├── volumes                            # app에서 생산되는 로그, 데이터베이스 관련 정의
+ │ ├── database                         # 데이터베이스 관련
+ │ └── logs                             # 로그 관련
+ └── run.sh                             # app 실행 쉘
+
+```
+
+## 참고
+
+### 1. emoji
 
     > https://gist.github.com/rxaviers/7360908
 
     > https://emojidb.org/streamlit-emojis
+
+### 2. sonarqube
+
+```
+- 프로젝트 명 : vs-streamlit
+- 프로젝트 키 : sqp_8b81784e727bac329de1691f88e6da469b380aee
+```
+
+### 3. sonar-scanner
+
+    -   sonar-scanner.properties
+
+    ```
+        #Configure here general information about the environment, such as SonarQube server connection details for example
+        #No information about specific project should appear here
+
+        #----- Default SonarQube server
+        #sonar.host.url=http://localhost:9000
+
+        #----- Default source code encoding
+        sonar.sourceEncoding=UTF-8
+    ```
+
+-   실행
+
+```
+D:\Utility\dev_tool\sonar\sonar-scanner-5.0.1.3006-windows\bin\sonar-scanner.bat -D"sonar.projectKey=vs-streamlit" -D"sonar.sources=." -D"sonar.host.url= http://localhost:8085" -D"sonar.login=sqp_8b81784e727bac329de1691f88e6da469b380aee" -D"sonar.projectBaseDir=D:\source\workspace-misc\workspace-streamlit\vitaminstudio" -D"sonar.exclusions=**/.git/**, **/.venv/**, **/.vscode/**, docker/**, misc/**, src/samples/**, src/test/**, volumes/**"
+```

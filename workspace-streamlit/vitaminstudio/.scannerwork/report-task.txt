@@ -1,0 +1,6 @@
+projectKey=vs-streamlit
+serverUrl=http://localhost:8085
+serverVersion=10.5.1.90531
+dashboardUrl=http://localhost:8085/dashboard?id=vs-streamlit
+ceTaskId=4a013d73-694b-4083-a0a3-9d1813183780
+ceTaskUrl=http://localhost:8085/api/ce/task?id=4a013d73-694b-4083-a0a3-9d1813183780
