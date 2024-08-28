@@ -11,5 +11,10 @@
     "sonarlint.connectedMode.project": {
         "connectionId": "http-localhost-8085",
         "projectKey": "vs-streamlit"
+    },
+    // 특정 파일 확장자에 대해 자동 포매팅 비활성화
+    "[sql]": {
+        "editor.formatOnSave": false,
+        "editor.formatOnType": false
     }
 }

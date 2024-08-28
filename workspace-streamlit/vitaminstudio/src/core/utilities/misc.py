@@ -42,5 +42,6 @@ def get_pwd(hash_key: str, salt_key: str, pwd: str) -> str:
     """
     hash_pwd = f'{hash_key}{salt_key}{pwd}'
     password_hash = hashlib.sha512(hash_pwd.encode("utf-8")).hexdigest()
+    print(f'password_hash : {password_hash}')
 
     return password_hash

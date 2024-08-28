@@ -29,7 +29,11 @@
         "python.analysis.typeCheckingMode": "off",
         "python.linting.enabled": true,
         "python.linting.flake8Enabled": true,
-        "python.linting.flake8Args": ["--max-line-length=160"],
+        "python.linting.flake8Args": [
+            "--max-line-length=160",
+            "--exclude",
+            "*.sql"
+        ],
         "python.linting.lintOnSave": true,
         "python.formatting.provider": "autopep8",
         "editor.formatOnSave": true,

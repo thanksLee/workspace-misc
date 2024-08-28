@@ -30,7 +30,7 @@ def render_login_page():
     page.run()
 
 
-def render_home_pages():
+def render_main_pages():
     """ 로그인 후 사이드바에 페이지를 렌더링하는 함수 """
 
     home_page = st.Page(MainView().render, title="VitaminStudio - Main")
@@ -62,7 +62,7 @@ def init():
             setup_local_db()
             render_login_page()
         else:
-            render_home_pages()
+            render_main_pages()
         # 세션 상태 디버그 출력 (필요한 경우)
         st.write(SessionStateManager.get_session_state())
     except Exception as ex:
