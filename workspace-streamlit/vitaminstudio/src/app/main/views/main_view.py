@@ -9,6 +9,9 @@ class MainView:
         self._word_dict_main_page = WordDictMainView()
         self._model_qc_main_page = ModelQCMainView()
 
+    def dashboard(self):
+        st.write('VitaminStudio - Dashboard')
+
     def settings(self):
         st.write('VitaminStudio - Settings')
 
@@ -17,6 +20,7 @@ class MainView:
 
     def lnb_menu(self):
         pages = {
+            '🏠 Home': [st.Page(self.dashboard, icon='📈', title="Dashboard")],
             '📟 데이터 표준화 관리': [
                 st.Page(self._word_dict_main_page.word_dict_view, icon='✏️', title='표준 단어 사전'),
                 st.Page(self._word_dict_main_page.term_dict_view, icon='📰', title='표준 용어 사전'),
