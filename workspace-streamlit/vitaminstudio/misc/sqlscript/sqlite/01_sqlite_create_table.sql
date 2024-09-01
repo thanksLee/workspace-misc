@@ -53,13 +53,20 @@ foreign key (mdfy_user_id)
 );
 
 --==============================================================
+-- Index: idx_prj_01
+--==============================================================
+create unique index idx_prj_01 on base_prj (
+prj_nm ASC
+);
+
+--==============================================================
 -- Table: sd_domain_dict
 --==============================================================
 create table sd_domain_dict (
 domain_seq           INTEGER              not null,
 p_domain_seq         INTEGER,
 domain_kor_nm        VARCHAR(50)          not null,
-domain_eng_nm        VARCHAR(50)          ,
+domain_eng_nm        VARCHAR(50),
 hrch_lvl             INTEGER              not null default 0,
 hrch_sort_order      INTEGER              not null default 1,
 domain_memo          VARCHAR(400),
@@ -79,8 +86,8 @@ create table sd_data_type (
 data_type_seq        INTEGER              not null,
 domain_seq           INTEGER,
 dbms_type_cd         VARCHAR(2)           not null,
-domain_yn            VARCHAR(1)            default 'Y'
-      check (domain_yn is null or (domain_yn = upper(domain_yn))),
+domain_yn            VARCHAR(1)           not null default 'Y'
+      check (domain_yn = upper(domain_yn)),
 data_type_cd         VARCHAR(3)           not null,
 data_type_len        VARCHAR(50),
 prcsn_len            VARCHAR(50),
@@ -95,6 +102,27 @@ mdfy_dt              DATE                 not null,
 primary key (data_type_seq),
 foreign key (domain_seq)
       references sd_domain_dict (domain_seq)
+);
+
+--==============================================================
+-- Index: uidx_data_type_01
+--==============================================================
+create unique index uidx_data_type_01 on sd_data_type (
+domain_seq ASC,
+dbms_type_cd ASC,
+domain_yn ASC,
+data_type_cd ASC,
+data_type_len ASC,
+prcsn_len ASC
+);
+
+--==============================================================
+-- Index: uidx_domain_dict_01
+--==============================================================
+create unique index uidx_domain_dict_01 on sd_domain_dict (
+domain_kor_nm ASC,
+domain_eng_nm ASC,
+p_domain_seq ASC
 );
 
 --==============================================================
@@ -157,8 +185,8 @@ kor_word_nm ASC
 create table sd_term_dict (
 term_seq             INTEGER              not null,
 data_type_seq        INTEGER              not null,
-term_eng_nm          VARCHAR(30)          not null,
 term_kor_nm          VARCHAR(50)          not null,
+term_eng_nm          VARCHAR(30)          not null,
 term_memo            VARCHAR(400),
 reg_user_id          VARCHAR(20)          not null,
 reg_dt               DATE                 not null,
@@ -170,21 +198,11 @@ foreign key (data_type_seq)
 );
 
 --==============================================================
--- Table: sd_term_word_dtl
+-- Index: uidx_term_dict_01
 --==============================================================
-create table sd_term_word_dtl (
-term_seq             INTEGER              not null,
-kor_word_seq         INTEGER              not null,
-eng_word_seq         INTEGER              not null,
-reg_user_id          VARCHAR(20)          not null,
-reg_dt               DATE                 not null,
-primary key (term_seq, kor_word_seq, eng_word_seq),
-foreign key (term_seq)
-      references sd_term_dict (term_seq),
-foreign key (kor_word_seq)
-      references sd_kor_word_dict (kor_word_seq),
-foreign key (eng_word_seq)
-      references sd_eng_word_dict (eng_word_seq)
+create unique index uidx_term_dict_01 on sd_term_dict (
+term_kor_nm ASC,
+term_eng_nm ASC
 );
 
 --==============================================================
@@ -193,7 +211,7 @@ foreign key (eng_word_seq)
 create table sd_word_cate (
 cate_seq             INTEGER              not null,
 prj_seq              INTEGER,
-cate_nm              VARCHAR(100)         not null,
+cate_nm              VARCHAR(100),
 reg_user_id          VARCHAR(20)          not null,
 reg_dt               DATE                 not null,
 mdfy_user_id         VARCHAR(20)          not null,
@@ -207,29 +225,40 @@ foreign key (prj_seq)
 -- Table: sd_word_cate_dtl
 --==============================================================
 create table sd_word_cate_dtl (
-word_cate_dtl_seq    INTEGER              not null,
-cate_seq             INTEGER              not null,
 kor_word_seq         INTEGER              not null,
 eng_word_seq         INTEGER              not null,
+eng_abbr_seq         INTEGER              not null,
 word_flg_cd          VARCHAR(1)           not null,
+cate_seq             INTEGER              not null,
 reg_user_id          VARCHAR(20)          not null,
 reg_dt               DATE                 not null,
 mdfy_user_id         VARCHAR(20)          not null,
 mdfy_dt              DATE                 not null,
-primary key (word_cate_dtl_seq),
+primary key (kor_word_seq, eng_word_seq, eng_abbr_seq, word_flg_cd),
 foreign key (cate_seq)
       references sd_word_cate (cate_seq),
-foreign key (eng_word_seq)
+foreign key (eng_abbr_seq)
       references sd_eng_word_dict (eng_word_seq),
 foreign key (kor_word_seq)
-      references sd_kor_word_dict (kor_word_seq)
+      references sd_kor_word_dict (kor_word_seq),
+foreign key (eng_word_seq)
+      references sd_eng_word_dict (eng_word_seq)
 );
 
 --==============================================================
--- Index: uidx_word_cate_dtl_01
+-- Table: sd_term_word_dtl
 --==============================================================
-create unique index uidx_word_cate_dtl_01 on sd_word_cate_dtl (
-cate_seq ASC,
-kor_word_seq ASC,
-eng_word_seq ASC
+create table sd_term_word_dtl (
+term_seq             INTEGER              not null,
+kor_word_seq         INTEGER              not null,
+eng_word_seq         INTEGER              not null,
+eng_abbr_seq         INTEGER              not null,
+word_flg_cd          VARCHAR(1)           not null,
+reg_user_id          VARCHAR(20)          not null,
+reg_dt               DATE                 not null,
+primary key (term_seq, kor_word_seq, eng_word_seq, eng_abbr_seq, word_flg_cd),
+foreign key (term_seq)
+      references sd_term_dict (term_seq),
+foreign key (kor_word_seq, eng_word_seq, eng_abbr_seq, word_flg_cd)
+      references sd_word_cate_dtl (kor_word_seq, eng_word_seq, eng_abbr_seq, word_flg_cd)
 );

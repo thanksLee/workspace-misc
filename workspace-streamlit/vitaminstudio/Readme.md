@@ -9,7 +9,17 @@
     ```shell
     poetry init
 
-    poetry add streamlit streamlit-authenticator streamlit_option_menu pydantic sqlalchemy toml oracledb psycopg2 chardet streamlit_js streamlit-cookies-controller streamlit-aggrid
+    poetry add streamlit \
+               streamlit-authenticator \
+               streamlit_option_menu \
+               pydantic sqlalchemy \
+               toml \
+               oracledb \
+               psycopg2 \
+               chardet \
+               streamlit_js \
+               streamlit-cookies-controller \
+               streamlit-aggrid
 
     ```
 

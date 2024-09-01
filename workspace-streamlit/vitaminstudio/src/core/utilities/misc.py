@@ -1,6 +1,10 @@
 import hashlib
+import json
+from typing import List, TypeVar, Optional
 
 from core.constants.global_enum import ServerDB
+
+T = TypeVar('T')
 
 
 def get_database_url(db_type: str, database_url: str) -> str | None:
@@ -45,3 +49,19 @@ def get_pwd(hash_key: str, salt_key: str, pwd: str) -> str:
     # print(f'password_hash : {password_hash}')
 
     return password_hash
+
+
+def model_result_to_json(result: List[T]) -> Optional[str]:
+    """
+    모델 인스턴스 목록을 JSON 문자열로 변환하는 유틸리티 함수.
+
+    :param result: 모델 인스턴스 목록.
+    :return: JSON 형식의 문자열 또는 None.
+    """
+    if not result:
+        return None
+
+    # 각 모델 인스턴스를 dict로 변환한 후 JSON 문자열로 변환
+    json_result = json.dumps([item.dict() for item in result], ensure_ascii=False)
+
+    return json_result

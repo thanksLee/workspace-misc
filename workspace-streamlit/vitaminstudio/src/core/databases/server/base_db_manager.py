@@ -15,14 +15,16 @@ class DBConfig(BaseModel):
 
 
 class BaseDBManager:
-    def __init__(self, db_type: str, config: DBConfig):
-        self._db_type = db_type
-        self._config = config
+    def __init__(self):
+        self._db_type = None
+        self._config = None
         self._engine = None
         self._session_factory = None
         self._app_logger = app_logger
 
-    def initialize(self):
+    def initialize(self, db_type: str, config: DBConfig):
+        self._db_type = db_type
+        self._config = config
         self._engine = create_engine(
             url=self._config.database_url,
             pool_size=self._config.pool_size,
@@ -33,6 +35,7 @@ class BaseDBManager:
             echo=self._config.echo
         )
         self._session_factory = sessionmaker(bind=self._engine, autoflush=False, expire_on_commit=False)
+
         self._app_logger.debug(f'Database {self._db_type} initialized with engine: {self._engine}')
         self._app_logger.debug(f'session_factory: {self._session_factory}')
 
@@ -45,6 +48,10 @@ class BaseDBManager:
 
     def get_session(self):
         return self._session_factory()
+
+    @property
+    def get_db_manager(self):
+        return self._db_managers
 
     @property
     def get_session_factory(self):

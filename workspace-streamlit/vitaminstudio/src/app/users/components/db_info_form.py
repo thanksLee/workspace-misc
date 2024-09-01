@@ -6,7 +6,7 @@ from core.configs.configs import local_db_config
 from core.utilities.files import get_file_list
 from core.utilities.misc import get_database_url
 
-from ..schemas.dto.user_dto import DBServerDTO
+from ..schemas.dto.user_request_dto import DBServerDTO
 from ..controllers.user_controller import UserController
 
 
@@ -41,7 +41,7 @@ class DBInfoForm:
                 # VitaminStudio table 생성
                 self.sqlite_form()
 
-            return DBServerDTO(server_type=self._server_type, db_type=self._db_type)
+            return True
 
     def sqlite_form(self):
         sqlite_col1, sqlite_col2, sqlite_col3 = st.columns([2, 1, 1])
@@ -78,9 +78,11 @@ class DBInfoForm:
                                                    db_url=self._db_url,
                                                    db_conn_status=False
                                                    )
-                user_controller = UserController(db_conn_info, initialize=True)
 
-                ret_val = user_controller.sqlite_create_db()
+                user_controller = UserController(db_conn_info.db_url)
+                user_controller.db_initialize(db_conn_info)
+                ret_val = user_controller.sqlite_create_db(db_conn_info.db_type)
+
                 st.toast(ret_val, icon='🔥')
 
     def oracle_form(self, db_type: str):

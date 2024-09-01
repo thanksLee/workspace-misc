@@ -3,11 +3,11 @@ from typing import Optional
 from common.services.common_service import CommonService
 
 from core.databases.server.transaction_manager import TransactionManager
-from core.sessions.session_state_manager import SessionStateManager
 from core.utilities.misc import get_pwd
+from core.constants.global_const import CURRENT_USER
 
 from ..mappers.user_mapper import UserMapper
-from ..schemas.dto.user_dto import LoginFormDTO
+from ..schemas.dto.user_request_dto import LoginFormDTO
 from ..schemas.vo.user_vo import UserVO
 from ..schemas.dto.user_response_dto import UserResponseDTO, UserDetailSchema
 
@@ -15,7 +15,6 @@ from ..schemas.dto.user_response_dto import UserResponseDTO, UserDetailSchema
 class UserLoginService(CommonService):
     def __init__(self, tr_manager: TransactionManager):
         super().__init__(tr_manager)
-        self._session_stat_manager: SessionStateManager = SessionStateManager
         self._user_form: LoginFormDTO = None
 
     def user_login_check(self, user_form: LoginFormDTO):
@@ -75,8 +74,8 @@ class UserLoginService(CommonService):
             )
 
             # session에 정보를 저장
-            self._session_stat_manager.set_session_state('current_user', _detail.to_dict())
-            self._app_logger.debug(self._session_stat_manager.get_session_state())
+            self._session_state_manager.set_session_state(CURRENT_USER, _detail.to_dict())
+            self._app_logger.debug(self._session_state_manager.get_session_state())
 
             return self.__build_response(self._ret_status.SUCCESS, self._vs_msg.VS_SUCCESS_003, _detail.to_dict())
 

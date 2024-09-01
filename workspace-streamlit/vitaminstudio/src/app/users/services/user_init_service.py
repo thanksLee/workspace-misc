@@ -7,10 +7,10 @@ from common.services.common_code_service import CommonCodeService
 from core.configs.configs import base_config
 from core.utilities.files import get_file_list, load_sql_file
 from core.exceptions import ExistsDatabase
-from core.sessions.session_state_manager import SessionStateManager
 from core.sessions.schemas.current_db_conn_schema import CurrentDBConnSchema
 from core.databases.server.transaction_manager import TransactionManager
 from core.constants.global_enum import ServerType
+from core.constants.global_const import CURRENT_DB_CONN
 
 from users.mappers.user_mapper import UserMapper
 
@@ -18,7 +18,6 @@ from users.mappers.user_mapper import UserMapper
 class UserInitService(CommonService):
     def __init__(self, tr_manager: TransactionManager):
         super().__init__(tr_manager)
-        self._session_state_manager: SessionStateManager = SessionStateManager()
 
     def sql_file_execute(self, db_type: str):
         ret_val = self._vs_msg.VS_SUCCESS_001.value
@@ -92,6 +91,6 @@ class UserInitService(CommonService):
         )
 
         # streamlit session에 DB 접속 정보를 저장한다.
-        self._session_state_manager.set_session_state('current_db_conn', current_db.model_dump())
+        self._session_state_manager.set_session_state(CURRENT_DB_CONN, current_db.model_dump())
 
         self._app_logger.debug(self._session_state_manager.get_session_state())

@@ -6,7 +6,7 @@ from core.sessions.session_state_manager import SessionStateManager
 from core.sessions.schemas.current_db_conn_schema import CurrentDBConnSchema
 
 from ..controllers.user_controller import UserController
-from ..schemas.dto.user_dto import LoginFormDTO
+from ..schemas.dto.user_request_dto import LoginFormDTO
 
 
 class LoginForm:
@@ -44,14 +44,14 @@ class LoginForm:
             )
         return ret_val
 
-    def _handle_login(self, db_conn_info):
+    def _handle_login(self, db_conn_info: CurrentDBConnSchema):
         if db_conn_info is None:
             st.error(":boom: VitaminStudio DB에 접속되지 않았습니다.")
         else:
             # 입력값 유효성 검사
             try:
                 with st.spinner('VitaminStudio에 로그인 중입니다.'):
-                    user_controller = UserController(db_conn_info)
+                    user_controller = UserController(db_conn_info.db_url)
 
                     # 키워드 인자를 사용하여 Pydantic 모델 인스턴스화
                     user_form = LoginFormDTO(login_id=self._login_id, login_pwd=self._login_pwd)

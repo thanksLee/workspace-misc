@@ -4,6 +4,7 @@ from core.databases.server.transaction_manager import TransactionManager
 from core.loggers.logger_manager import app_logger
 from core.configs.configs import base_config
 from core.constants.global_enum_msg import ResultStatus, VSMessage
+from core.sessions.session_state_manager import SessionStateManager
 
 
 class CommonService:
@@ -14,3 +15,4 @@ class CommonService:
         self._base_config = base_config
         self._ret_status = ResultStatus
         self._vs_msg = VSMessage
+        self._session_state_manager = SessionStateManager()

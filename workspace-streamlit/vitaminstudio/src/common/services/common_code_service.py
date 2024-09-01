@@ -1,7 +1,7 @@
 from common.services.common_service import CommonService
 from common.mappers.common_code_mapper import CommonCodeMapper
 
-from core.singletons.common_code_singleton import CommonCodeSingleton
+from core.singletons.common_code_store import CommonCodeStore
 from core.exceptions import InstanceNotLoadError
 
 
@@ -22,11 +22,11 @@ class CommonCodeService(CommonService):
         # 메모리에 공통 코드를 로드
         if self._common_codes is None:
             raise InstanceNotLoadError("Common codes are not loaded. Call 'get_common_code_list' first.")
-        CommonCodeSingleton.reset_instance(self._common_codes)
+        CommonCodeStore().initialize(self._common_codes)
 
     def load_and_set_memory(self):
         # 공통 코드를 로드하고 메모리에 올리는 메서드
         self.get_common_code_list()
         self.set_memory_load()
 
-        # self._app_logger.debug(f'CommonCodeSingleton.get_instance() : {CommonCodeSingleton.get_instance()}')
+        # self._app_logger.debug(f'CommonCodeStore.get_instance() : {CommonCodeStore.get_instance()}')

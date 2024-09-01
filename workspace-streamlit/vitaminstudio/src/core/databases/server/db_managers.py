@@ -5,8 +5,8 @@ from core.constants.global_enum import ProductInfo
 
 
 class SQLiteManager(BaseDBManager):
-    def __init__(self, db_type: str, config: str):
-        super().__init__(db_type, config)
+    def __init__(self):
+        super().__init__()
         self._app_logger = app_logger
 
     def test_connection(self):
@@ -16,8 +16,8 @@ class SQLiteManager(BaseDBManager):
 
 
 class PostgreSQLManager(BaseDBManager):
-    def __init__(self, db_type: str, config: str):
-        super().__init__(db_type, config)
+    def __init__(self):
+        super().__init__()
         self._app_logger = app_logger
 
         self.add_application_name()
@@ -33,8 +33,8 @@ class PostgreSQLManager(BaseDBManager):
 
 
 class OracleManager(BaseDBManager):
-    def __init__(self, db_type: str, config: str):
-        super().__init__(db_type, config)
+    def __init__(self):
+        super().__init__()
         self._app_logger = app_logger
 
         self.add_application_name()

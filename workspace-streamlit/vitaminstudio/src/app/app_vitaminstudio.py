@@ -3,6 +3,7 @@ import streamlit as st
 from core.databases.local.local_db_manager import local_db_manager
 from core.constants.global_enum import ProductInfo
 from core.sessions.session_state_manager import SessionStateManager
+from core.constants.global_const import CURRENT_USER
 
 from app.main.views.main_view import MainView
 from app.users.views.login_view import LoginView
@@ -56,7 +57,7 @@ def handle_exception(ex):
 def init():
     """ 초기화 함수 """
     try:
-        _current_user = SessionStateManager.get_session_state('current_user')
+        _current_user = SessionStateManager.get_session_state(CURRENT_USER)
 
         if _current_user is None:
             setup_local_db()

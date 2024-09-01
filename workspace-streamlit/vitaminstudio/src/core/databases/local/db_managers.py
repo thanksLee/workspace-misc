@@ -22,5 +22,5 @@ class SQLiteManager(BaseDatabaseManager):
         from core.databases.server.db_connection_manager import db_manager
 
         db_manager.add_db_manager(self._db_type, self._database_url)
-        db_conn = db_manager.get_db_manager(self._db_type)
+        db_conn = db_manager.get_db_manager(self._database_url)
         db_conn.test_connection()

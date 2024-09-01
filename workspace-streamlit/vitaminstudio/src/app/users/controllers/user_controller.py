@@ -5,26 +5,19 @@ from core.sessions.schemas.current_db_conn_schema import CurrentDBConnSchema
 
 from ..services.user_init_service import UserInitService
 from ..services.user_login_service import UserLoginService
-from ..schemas.dto.user_dto import LoginFormDTO
+from ..schemas.dto.user_request_dto import LoginFormDTO
 
 
 class UserController(CommonController):
-    def __init__(self, db_conn_info: CurrentDBConnSchema, initialize: bool | None = False):
+    def __init__(self, db_url: str):
+        super().__init__(db_url)
 
-        # 최초 DB 접속을 하는 거라면...
-        if initialize:
-            db_manager.add_db_manager(db_conn_info.db_type, db_conn_info.db_url)
+    def db_initialize(self, db_conn_info: CurrentDBConnSchema):
+        db_manager.add_db_manager(db_conn_info.db_type, db_conn_info.db_url)
 
-        super().__init__(db_conn_info.db_type)
-
-        # Server로 접속하여 Database 및 Table을 생성하는 것이므로
-        # 새로운 DB Connection을 한다.
-        self._db_conn_info: CurrentDBConnSchema = db_conn_info
-
-        self._user_init_service = UserInitService(self._tr_manager)
-
-    def sqlite_create_db(self):
-        qry_result = self._user_init_service.sql_file_execute(self._db_conn_info.db_type)
+    def sqlite_create_db(self, db_type: str):
+        _user_init_service = UserInitService(self._tr_manager)
+        qry_result = _user_init_service.sql_file_execute(db_type)
 
         return qry_result
 

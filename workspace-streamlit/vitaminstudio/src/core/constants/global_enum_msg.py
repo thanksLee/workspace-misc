@@ -3,6 +3,7 @@ from enum import Enum, unique
 
 @unique
 class VSMessage(Enum):
+    VS_SUCCESS_000 = 'successfully.'
     VS_SUCCESS_001 = 'The database has been successfully created.'
     VS_SUCCESS_002 = 'You have connected to the selected database.'
     VS_SUCCESS_003 = 'You have successfully logged in.'
@@ -12,6 +13,7 @@ class VSMessage(Enum):
     VS_ERROR_003 = 'Login has failed.'
     VS_ERROR_004 = 'The password does not match.'
     VS_ERROR_005 = 'The user account is suspended.'
+    VS_ERROR_006 = 'Failed to retrieve data.'
 
 
 @unique

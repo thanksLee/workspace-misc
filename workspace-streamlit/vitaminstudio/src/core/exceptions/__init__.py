@@ -16,3 +16,12 @@ class InstanceNotLoadError(Exception):
             message = 'The instance has not been loaded.'
 
         super().__init__(message)
+
+
+class CommonCodeValueError(Exception):
+    def __init__(self, message: str = None):
+
+        if message is None:
+            message = 'There is no matching value in the common code.'
+
+        super().__init__(message)

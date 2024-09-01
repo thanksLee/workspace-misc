@@ -1,16 +1,19 @@
+from pydantic import Field, field_validator
 from pydantic.dataclasses import dataclass
+
 from common.schemas.dto.common_response_dto import CommonResponseDTO
+from common.schemas.base_schema import BaseSchema
 
 
 @dataclass
-class UserDetailSchema:
-    user_id: str
-    user_type_cd: str
-    user_type_cd_nm: str
-    login_status: bool = False
+class UserDetailSchema(BaseSchema):
+    user_id: str = Field(title='사용자 아이디')
+    user_type_cd: str = Field(title='사용자 유형 코드')
+    user_type_cd_nm: str = Field(title='사용자 유형 코드 명')
+    login_status: bool = Field(title='로그인 상태', default=False)
 
-    def to_dict(self) -> dict:
-        return self.__dict__
+    def __post_init__(self):
+        super().__init__()
 
 
 class UserResponseDTO(CommonResponseDTO):
