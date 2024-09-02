@@ -9,6 +9,9 @@ class SQLiteManager(BaseDBManager):
         super().__init__()
         self._app_logger = app_logger
 
+    def add_application_name(self):
+        pass
+
     def test_connection(self):
         sqlite_query = "select 1"
         result = self.get_session().execute(text(sqlite_query)).fetchall()
@@ -19,8 +22,6 @@ class PostgreSQLManager(BaseDBManager):
     def __init__(self):
         super().__init__()
         self._app_logger = app_logger
-
-        self.add_application_name()
 
     def add_application_name(self):
         sql = 'set application_name to :app_name'
@@ -36,8 +37,6 @@ class OracleManager(BaseDBManager):
     def __init__(self):
         super().__init__()
         self._app_logger = app_logger
-
-        self.add_application_name()
 
     def add_application_name(self):
         sql = 'call dbms_application_info.set_client_info(:app_name)'

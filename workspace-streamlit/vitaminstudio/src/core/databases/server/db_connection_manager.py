@@ -25,6 +25,8 @@ class DBConnectionManager:
 
         # 매니저 초기화
         _manager.initialize(db_type, config)
+        _manager.add_application_name()
+        _manager.test_connection()
 
         # 생성된 매니저를 DBConnectionStore에 등록
         self._db_store.register_manager(db_url, _manager)
@@ -40,11 +42,24 @@ db_manager = DBConnectionManager()
 
 if __name__ == '__main__':
 
-    db_type = 'sqlite'
-    db_conn_url = 'sqlite:///./volumes/database/vitamin.db'
+    def sql_lite():
+        db_type = 'sqlite'
+        db_conn_url = 'sqlite:///./volumes/database/vitamin.db'
 
-    db_manager.add_db_manager(db_type, db_conn_url)
-    db_conn = db_manager.get_db_manager(db_conn_url)
-    db_conn.test_connection()
-    db_conn.get_session()
-    db_manager.close_all()
+        db_manager.add_db_manager(db_type, db_conn_url)
+        db_conn = db_manager.get_db_manager(db_conn_url)
+        db_conn.test_connection()
+        db_conn.get_session()
+        db_manager.close_all()
+
+    def postgresql():
+        db_type = 'postgresql'
+        db_conn_url = 'postgresql+psycopg2://examplemaster:examplemaster@localhost:15432/example_db'
+
+        db_manager.add_db_manager(db_type, db_conn_url)
+        db_conn = db_manager.get_db_manager(db_conn_url)
+        db_conn.test_connection()
+        db_conn.get_session()
+        db_manager.close_all()
+
+    sql_lite()

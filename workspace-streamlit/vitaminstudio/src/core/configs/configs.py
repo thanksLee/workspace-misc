@@ -52,6 +52,50 @@ class LocalDBConfig(Configurable):
 local_db_config = LocalDBConfig()
 
 
+class ServerDBConfig(Configurable):
+    def __init__(self):
+        super().__init__('serverdb')
+
+        self._db_type = self.get_config('database_type')
+        self._db = self.get_config('db')
+        self._db_host = self.get_config('host')
+        self._db_port = self.get_config('port')
+        self._db_user = self.get_config('user')
+        self._db_pwd = self.get_config('pwd')
+        self._db_schema = self.get_config('schema')
+
+    @property
+    def db_type(self):
+        return self._db_type
+
+    @property
+    def db(self):
+        return self._db
+
+    @property
+    def db_host(self):
+        return self._db_host
+
+    @property
+    def db_port(self):
+        return self._db_port
+
+    @property
+    def db_user(self):
+        return self._db_user
+
+    @property
+    def db_pwd(self):
+        return self._db_pwd
+
+    @property
+    def db_schema(self):
+        return self._db_schema
+
+
+server_db_config = ServerDBConfig()
+
+
 class ConsoleLoggerConfig(Configurable):
     def __init__(self):
         super().__init__('console_logger')

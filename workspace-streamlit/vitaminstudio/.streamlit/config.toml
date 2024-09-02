@@ -18,6 +18,11 @@ database_type = 'sqlite'
 database_path = './volumes/database'
 database_name = 'vitamin.db'
 
-[serverdb_base]
-database_type = 'sqlite'
-database_path = './volumes/database'
+[serverdb]
+database_type = 'postgresql'
+db = 'example_db'
+host = 'localhost'
+port = 15432
+user = 'examplemaster'
+pwd = 'examplemaster'
+schema = 'example'

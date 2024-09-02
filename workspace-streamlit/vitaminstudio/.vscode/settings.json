@@ -16,5 +16,9 @@
     "[sql]": {
         "editor.formatOnSave": false,
         "editor.formatOnType": false
-    }
+    },
+    "[md]": {
+        "editor.formatOnSave": false,
+        "editor.formatOnType": false
+    },
 }

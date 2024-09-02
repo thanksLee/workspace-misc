@@ -24,6 +24,8 @@ def get_database_url(db_type: str, database_url: str) -> str | None:
     """
     if db_type == ServerDB.SQLITE.value:
         return f'sqlite:///{database_url}'
+    elif db_type == ServerDB.POSTGRESQL.value:
+        return f'postgresql+psycopg2://{database_url}'
     else:
         return None
 

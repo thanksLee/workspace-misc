@@ -11,16 +11,22 @@
 
     poetry add streamlit \
                streamlit-authenticator \
-               streamlit_option_menu \
-               pydantic sqlalchemy \
+               pydantic \
+               sqlalchemy \
                toml \
                oracledb \
                psycopg2 \
                chardet \
+
+    ```
+
+-   설치해 보면서 확인해야 할것 들.
+
+    ```shell
+    poetry add streamlit_option_menu
                streamlit_js \
                streamlit-cookies-controller \
                streamlit-aggrid
-
     ```
 
 ## 1.1 Lint 설정
@@ -35,22 +41,33 @@
 -   .vscode/settings.json
 
     ```json
+
     {
         "python.analysis.typeCheckingMode": "off",
         "python.linting.enabled": true,
         "python.linting.flake8Enabled": true,
-        "python.linting.flake8Args": [
-            "--max-line-length=160",
-            "--exclude",
-            "*.sql"
-        ],
+        "python.linting.flake8Args": ["--max-line-length=160"],
         "python.linting.lintOnSave": true,
         "python.formatting.provider": "autopep8",
         "editor.formatOnSave": true,
         "python.testing.unittestEnabled": false,
-        "python.testing.pytestEnabled": true
+        "python.testing.pytestEnabled": true,
+        "sonarlint.connectedMode.project": {
+        "connectionId": "http-localhost-8085",
+            "projectKey": "vs-streamlit"
+        },
+    // 특정 파일 확장자에 대해 자동 포매팅 비활성화
+    "[sql]": {
+            "editor.formatOnSave": false,
+            "editor.formatOnType": false
+        },
+    "[md]": {
+            "editor.formatOnSave": false,
+            "editor.formatOnType": false
+        }
     }
-    ```
+
+        ```
 
 -   isort
 
@@ -237,7 +254,7 @@ vitaminstudio
 
 ### 3. sonar-scanner
 
-    -   sonar-scanner.properties
+-   sonar-scanner.properties
 
     ```
         #Configure here general information about the environment, such as SonarQube server connection details for example
@@ -252,6 +269,6 @@ vitaminstudio
 
 -   실행
 
-```
+```shell
 D:\Utility\dev_tool\sonar\sonar-scanner-5.0.1.3006-windows\bin\sonar-scanner.bat -D"sonar.projectKey=vs-streamlit" -D"sonar.sources=." -D"sonar.host.url= http://localhost:8085" -D"sonar.login=sqp_8b81784e727bac329de1691f88e6da469b380aee" -D"sonar.projectBaseDir=D:\source\workspace-misc\workspace-streamlit\vitaminstudio" -D"sonar.exclusions=**/.git/**, **/.venv/**, **/.vscode/**, docker/**, misc/**, src/samples/**, src/test/**, volumes/**"
 ```

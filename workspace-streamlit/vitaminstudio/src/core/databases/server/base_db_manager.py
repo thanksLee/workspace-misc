@@ -50,10 +50,6 @@ class BaseDBManager:
         return self._session_factory()
 
     @property
-    def get_db_manager(self):
-        return self._db_managers
-
-    @property
     def get_session_factory(self):
         return self._session_factory
 
