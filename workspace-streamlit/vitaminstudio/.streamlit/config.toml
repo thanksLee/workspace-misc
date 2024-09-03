@@ -20,9 +20,9 @@ database_name = 'vitamin.db'
 
 [serverdb]
 database_type = 'postgresql'
-db = 'example_db'
+db_name = 'vunolblt_db'
 host = 'localhost'
 port = 15432
-user = 'examplemaster'
-pwd = 'examplemaster'
-schema = 'example'
+user = 'vunolbltmaster'
+pwd = 'vn!vunolbltmaster##!'
+schema = 'vunolblt'

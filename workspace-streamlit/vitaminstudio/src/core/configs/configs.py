@@ -57,7 +57,7 @@ class ServerDBConfig(Configurable):
         super().__init__('serverdb')
 
         self._db_type = self.get_config('database_type')
-        self._db = self.get_config('db')
+        self._db_name = self.get_config('db_name')
         self._db_host = self.get_config('host')
         self._db_port = self.get_config('port')
         self._db_user = self.get_config('user')
@@ -69,8 +69,8 @@ class ServerDBConfig(Configurable):
         return self._db_type
 
     @property
-    def db(self):
-        return self._db
+    def db_name(self):
+        return self._db_name
 
     @property
     def db_host(self):

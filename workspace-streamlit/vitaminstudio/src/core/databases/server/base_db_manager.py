@@ -37,7 +37,7 @@ class BaseDBManager:
         self._session_factory = sessionmaker(bind=self._engine, autoflush=False, expire_on_commit=False)
 
         self._app_logger.debug(f'Database {self._db_type} initialized with engine: {self._engine}')
-        self._app_logger.debug(f'session_factory: {self._session_factory}')
+        self._app_logger.debug(f'========= pool status : {self._engine.pool.status()} - {self._session_factory()} =========')
 
         logger_manager.setup_sqlalchemy_logging(self._engine)
 

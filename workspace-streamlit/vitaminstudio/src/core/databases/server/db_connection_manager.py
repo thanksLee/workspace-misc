@@ -23,13 +23,18 @@ class DBConnectionManager:
         else:
             raise ValueError(f"Unsupported database type: {db_type}")
 
-        # 매니저 초기화
-        _manager.initialize(db_type, config)
-        _manager.add_application_name()
-        _manager.test_connection()
+        _tmp_manager = self._db_store.get_manager(db_url)
+        if _tmp_manager is None:
+            # 매니저 초기화
+            _manager.initialize(db_type, config)
+            _manager.add_application_name()
 
-        # 생성된 매니저를 DBConnectionStore에 등록
-        self._db_store.register_manager(db_url, _manager)
+            # 생성된 매니저를 DBConnectionStore에 등록
+            self._db_store.register_manager(db_url, _manager)
+        else:
+            _manager = _tmp_manager
+
+        _manager.test_connection()
 
     def get_db_manager(self, db_url: str) -> Union[SQLiteManager, PostgreSQLManager, OracleManager]:
         return self._db_store.get_manager(db_url)
@@ -54,7 +59,7 @@ if __name__ == '__main__':
 
     def postgresql():
         db_type = 'postgresql'
-        db_conn_url = 'postgresql+psycopg2://examplemaster:examplemaster@localhost:15432/example_db'
+        db_conn_url = 'postgresql+psycopg2://example:example@localhost:5432/example_db'
 
         db_manager.add_db_manager(db_type, db_conn_url)
         db_conn = db_manager.get_db_manager(db_conn_url)
@@ -62,4 +67,4 @@ if __name__ == '__main__':
         db_conn.get_session()
         db_manager.close_all()
 
-    sql_lite()
+    postgresql()

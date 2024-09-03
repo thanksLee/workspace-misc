@@ -40,7 +40,10 @@ class DBInfoForm:
             if self._db_type == ServerDB.SQLITE.value:
                 # VitaminStudio table 생성
                 self.sqlite_form()
-
+            elif self._db_type == ServerDB.POSTGRESQL.value:
+                self.pg_form()
+            elif self._db_type == ServerDB.ORACLE.value:
+                self.oracle_form()
             return True
 
     def sqlite_form(self):
@@ -85,8 +88,55 @@ class DBInfoForm:
 
                 st.toast(ret_val, icon='🔥')
 
-    def oracle_form(self, db_type: str):
+    def oracle_form(self):
         pass
 
-    def pg_form(self, db_type: str):
+    def pg_form(self):
+        pg_col_1, pg_col_2 = st.columns([3, 1])
+        with pg_col_1:
+            db_host = st.text_input(label='host', placeholder='host', label_visibility='collapsed')
+
+        with pg_col_2:
+            db_port = st.text_input(label='port', placeholder='port', label_visibility='collapsed')
+
+        pg_col_3, pg_col_4, pg_col_5 = st.columns([2, 3, 2])
+
+        with pg_col_3:
+            db_user = st.text_input(label='user', placeholder='user', label_visibility='collapsed')
+
+        with pg_col_4:
+            db_pwd = st.text_input(label='password', placeholder='password', type='password', label_visibility='collapsed')
+
+        with pg_col_5:
+            db_schema = st.text_input(label='schema', placeholder='schema', label_visibility='collapsed')
+
+        pg_col_6, pg_col_7 = st.columns([3, 1])
+
+        with pg_col_6:
+            db_name = st.text_input(label='database', placeholder='database', label_visibility='collapsed')
+
+        with pg_col_7:
+            conn_db = st.button(
+                label=":factory: Connect DB",
+                type="primary",
+                use_container_width=True,
+            )
+
+        if conn_db:
+            with st.spinner('VitaminStudio Table 및 데이터 생성중...'):
+                self._db_url: str = get_database_url(self._db_type, f'{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}')
+
+                db_conn_info = CurrentDBConnSchema(server_type=self._server_type,
+                                                   db_type=self._db_type,
+                                                   db_url=self._db_url,
+                                                   db_conn_status=False
+                                                   )
+
+                user_controller = UserController(db_conn_info.db_url)
+                user_controller.db_initialize(db_conn_info)
+                # ret_val = user_controller.sqlite_create_db(db_conn_info.db_type)
+
+                # st.toast(ret_val, icon='🔥')
+
+    def __build_db_conn(self):
         pass

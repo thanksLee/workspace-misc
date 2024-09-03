@@ -20,17 +20,17 @@ class DBConnectionStore(metaclass=SingletonMeta):
             cls._instance._app_logger = app_logger
         return cls._instance
 
-    def register_manager(self, db_conn_str: str, manager: BaseDBManager):
-        if db_conn_str not in self._db_managers:
-            self._db_managers[db_conn_str] = manager
+    def register_manager(self, db_url: str, base_manager: BaseDBManager):
+        if db_url not in self._db_managers:
+            self._db_managers[db_url] = base_manager
         else:
-            self._app_logger.info(f"Manager for {db_conn_str} already exists.")
+            self._app_logger.info(f"Manager for {db_url} already exists.")
 
-        self._app_logger.debug(f'self._db_managers[db_conn_str] : {self._db_managers[db_conn_str]}')
+        self._app_logger.debug(f'register_manager : self._db_managers[db_url] : {self._db_managers[db_url]}')
 
-    def get_manager(self, db_conn_str: str) -> Union[BaseDBManager, None]:
-        self._app_logger.debug(f'db_conn_str - {db_conn_str} : {self._db_managers.get(db_conn_str)}')
-        return self._db_managers.get(db_conn_str)
+    def get_manager(self, db_url: str) -> Union[BaseDBManager, None]:
+        self._app_logger.debug(f'get_manager : db_url - {db_url} : {self._db_managers.get(db_url)}')
+        return self._db_managers.get(db_url)
 
     def close_all(self):
         for manager in self._db_managers.values():
