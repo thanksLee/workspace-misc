@@ -1,7 +1,14 @@
+---
 version: 2
 updates:
+  - package-ecosystem: "poetry"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "streamlit/develop/VS/v0.0.1"
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
     target-branch: "streamlit/develop/VS/v0.0.1"
+
