@@ -1,1 +1,7 @@
-
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "streamlit/develop/VS/v0.0.1"
