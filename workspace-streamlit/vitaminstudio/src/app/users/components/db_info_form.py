@@ -16,6 +16,7 @@ class DBInfoForm:
         self._db_type: str = ''
         self._db_url: str = ''
         self._db_conn_status: bool = False
+        self._db_schema: str = ''
 
     def render(self) -> DBServerDTO:
         with st.expander(label="VitaminStudio DB Info", expanded=True):
@@ -73,20 +74,8 @@ class DBInfoForm:
             )
 
         if conn_db:
-            with st.spinner('VitaminStudio Table 및 데이터 생성중...'):
-                self._db_url: str = get_database_url(self._db_type, f'{db_file_path}/{sqlite_db_list}')
-
-                db_conn_info = CurrentDBConnSchema(server_type=self._server_type,
-                                                   db_type=self._db_type,
-                                                   db_url=self._db_url,
-                                                   db_conn_status=False
-                                                   )
-
-                user_controller = UserController(db_conn_info.db_url)
-                user_controller.db_initialize(db_conn_info)
-                ret_val = user_controller.sqlite_create_db(db_conn_info.db_type)
-
-                st.toast(ret_val, icon='🔥')
+            self._db_url: str = get_database_url(self._db_type, f'{db_file_path}/{sqlite_db_list}')
+            self.__build_db_conn()
 
     def oracle_form(self):
         pass
@@ -123,20 +112,20 @@ class DBInfoForm:
             )
 
         if conn_db:
-            with st.spinner('VitaminStudio Table 및 데이터 생성중...'):
-                self._db_url: str = get_database_url(self._db_type, f'{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}')
-
-                db_conn_info = CurrentDBConnSchema(server_type=self._server_type,
-                                                   db_type=self._db_type,
-                                                   db_url=self._db_url,
-                                                   db_conn_status=False
-                                                   )
-
-                user_controller = UserController(db_conn_info.db_url)
-                user_controller.db_initialize(db_conn_info)
-                # ret_val = user_controller.sqlite_create_db(db_conn_info.db_type)
-
-                # st.toast(ret_val, icon='🔥')
+            self._db_url = get_database_url(self._db_type, f'{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}')
+            self._db_schema = db_schema
+            self.__build_db_conn()
 
     def __build_db_conn(self):
-        pass
+        with st.spinner('VitaminStudio Table 및 데이터 생성중...'):
+            db_conn_info = CurrentDBConnSchema(server_type=self._server_type,
+                                               db_type=self._db_type,
+                                               db_url=self._db_url,
+                                               db_conn_status=False,
+                                               db_schema=self._db_schema
+                                               )
+
+            user_controller = UserController(db_conn_info.db_url)
+            ret_val = user_controller.handle_db_conn_click(db_conn_info)
+
+            st.toast(ret_val, icon='🔥')

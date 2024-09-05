@@ -42,7 +42,8 @@
             "args": [
                 "run",
                 //"${workspaceFolder}/src/samples/sample_01/app_sample.py",
-                "${workspaceFolder}/src/samples/components/dbconn/db_conn_sample.py",
+                //"${workspaceFolder}/src/samples/components/dbconn/db_conn_sample.py",
+                "${workspaceFolder}/src/samples/sample_02/sample_01.py",
                 "--server.port",
                 "2000"
             ],

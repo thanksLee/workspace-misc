@@ -19,11 +19,11 @@ class UserInitService(CommonService):
     def __init__(self, tr_manager: TransactionManager):
         super().__init__(tr_manager)
 
-    def sql_file_execute(self, db_type: str):
+    def sql_file_execute(self, db_type: str, db_schema: str):
         ret_val = self._vs_msg.VS_SUCCESS_001.value
         try:
             # 테이블 존재 여부 확인
-            table_exists = self.get_table_exists() is not None
+            table_exists = self.get_table_exists(db_type, db_schema) is not None
 
             if not table_exists:
                 # 테이블이 없을 경우 먼저 SQL 파일을 실행하여 테이블을 생성
@@ -68,11 +68,11 @@ class UserInitService(CommonService):
                         self._app_logger.error(f'SQL loader failed: {e}')
                         raise
 
-    def get_table_exists(self) -> Optional[dict]:
+    def get_table_exists(self, db_type: str, db_schema: str) -> Optional[dict]:
         """특정 테이블이 존재하는지 확인하는 메서드."""
         ret_val: Optional[dict] = None
         with self._tr_manager.get_transaction() as tran_session:
-            qry_result = UserMapper(tran_session).select_sqlite_table_exists_check()
+            qry_result = UserMapper(tran_session).select_table_exists_check(db_type, db_schema)
 
         if qry_result._mapping['table_cnt'] > 0:
             self._app_logger.debug(f"Table count: {qry_result._mapping['table_cnt']}")

@@ -56,7 +56,7 @@ class LoginForm:
                     # 키워드 인자를 사용하여 Pydantic 모델 인스턴스화
                     user_form = LoginFormDTO(login_id=self._login_id, login_pwd=self._login_pwd)
 
-                    ret_val = user_controller.user_login(user_form)
+                    ret_val = user_controller.handle_user_login_click(user_form)
 
                     if ret_val['status'] == 200:
                         st.info(ret_val['message'])

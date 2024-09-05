@@ -15,5 +15,7 @@ class WordDictListForm:
 
     def load_word_dict_list(self, values: Optional[list]):
         if values:
-            list_columes = values[0].keys
-            st.write(list_columes)
+            # list_columes = values[0].keys
+            # st.write(list_columes)
+            df = pd.json_normalize(values)
+            st.dataframe(df, hide_index=True)
