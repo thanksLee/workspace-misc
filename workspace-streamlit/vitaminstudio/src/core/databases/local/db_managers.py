@@ -1,6 +1,6 @@
 import os
 from core.databases.local.base_db_manager import BaseDatabaseManager
-from core.configs.configs import local_db_config
+from core.configs.base import local_db_config
 from core.utilities.misc import get_database_url
 
 

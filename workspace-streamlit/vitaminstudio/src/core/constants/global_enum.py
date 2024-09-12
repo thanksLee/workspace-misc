@@ -44,3 +44,17 @@ class LoggerName(Enum):
     APP = 'app'
     CONSOLE = 'console'
     SQL = 'sql'
+
+
+@unique
+class MenuItem(Enum):
+    MENU_0000 = 'Dashboard'
+    MENU_0001 = '표준 단어 사전'
+    MENU_0002 = '표준 용어 사전'
+    MENU_0003 = '표준 도메인 사전'
+    MENU_0004 = '모델 분석'
+    MENU_0005 = '모델 비교'
+    MENU_0006 = '모델 명세'
+    MENU_0007 = '감리 대응 분석'
+    MENU_0008 = '설정'
+    MENU_0009 = '로그아웃'

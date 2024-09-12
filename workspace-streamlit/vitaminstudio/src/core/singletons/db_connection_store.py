@@ -1,8 +1,8 @@
 from typing import Dict, Union
 
 from core.databases.server.base_db_manager import BaseDBManager
-from core.loggers.logger_manager import app_logger, LoggerType
-from .singleton_meta import SingletonMeta
+from core.loggers.manager import app_logger, LoggerType
+from .meta import SingletonMeta
 
 
 class DBConnectionStore(metaclass=SingletonMeta):

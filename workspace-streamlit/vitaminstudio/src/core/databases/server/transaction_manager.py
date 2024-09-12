@@ -1,6 +1,6 @@
 from contextlib import contextmanager
 from sqlalchemy.orm import sessionmaker
-from core.loggers.logger_manager import app_logger
+from core.loggers.manager import app_logger
 
 
 class TransactionManager:
@@ -9,7 +9,7 @@ class TransactionManager:
         self._app_logger = app_logger
 
     @contextmanager
-    def get_transaction(self, external_session=None) -> sessionmaker:
+    def get_transaction(self, external_session=None):
         # 만약 external_session이 제공되지 않았다면 새로운 세션을 생성
         session = external_session or self._session_factory
         new_transaction = external_session is None

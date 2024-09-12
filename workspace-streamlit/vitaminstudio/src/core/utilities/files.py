@@ -96,7 +96,7 @@ def detect_encoding(file_path: str):
 
 
 def load_sql_file(file_path: str) -> list:
-    from core.constants.global_const import SQL_LOAD_FILE_EXT
+    from core.constants import SQL_LOAD_FILE_EXT
     """
     파일을 읽어서 sql statement 를 추출하는 함수
 

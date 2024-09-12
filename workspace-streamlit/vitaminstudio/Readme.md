@@ -40,7 +40,7 @@
 
 -   .vscode/settings.json
 
-    ```json
+    ````json
 
     {
         "python.analysis.typeCheckingMode": "off",
@@ -68,6 +68,8 @@
     }
 
         ```
+
+    ````
 
 -   isort
 
@@ -236,6 +238,17 @@ vitaminstudio
  └── run.sh                             # app 실행 쉘
 
 ```
+
+# 5. 네이밍 룰
+
+## 5.1 파일 네이밍 룰
+
+-   되도록 간략하게 한다.
+-   부모와 관련된 접두어, 접미어는 제외하고 순수 파일명을 이용한다.
+
+## 5.2 Class 네이밍 룰
+
+-   부모의 최상위 폴더명 + 업무 + 바로 상위 폴더명 으로 사용한다.
 
 ## 참고
 

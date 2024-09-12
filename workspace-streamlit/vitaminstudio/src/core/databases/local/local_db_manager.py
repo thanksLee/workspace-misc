@@ -1,6 +1,6 @@
 from core.constants.global_enum import ServerDB
 from core.databases.local.db_managers import SQLiteManager
-from core.configs.configs import local_db_config
+from core.configs.base import local_db_config
 
 
 class LocalDBManager:

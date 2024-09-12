@@ -3,11 +3,11 @@ import streamlit as st
 from core.databases.local.local_db_manager import local_db_manager
 from core.constants.global_enum import ProductInfo
 from core.sessions.session_state_manager import SessionStateManager
-from core.loggers.logger_manager import app_logger
-from core.constants.global_const import CURRENT_USER, CURRENT_DB_CONN
+from core.loggers.manager import app_logger
+from core.constants import CURRENT_USER, CURRENT_DB_CONN
 
-from app.main.views.main_view import MainView
-from app.users.views.login_view import LoginView
+from app.main.views.main import MainView
+from app.users.views.login import LoginView
 
 # 페이지 설정: 탭 이름과 favicon을 설정
 st.set_page_config(

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from core.loggers.logger_manager import app_logger
+from core.loggers.manager import app_logger
 
 
 class BaseDatabaseManager(ABC):

@@ -1,5 +1,5 @@
 from core.databases.server.db_connection_manager import db_manager
-from core.configs.configs import ServerDBConfig
+from core.configs.base import ServerDBConfig
 from core.utilities.misc import get_database_url
 
 

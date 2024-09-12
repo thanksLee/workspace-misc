@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from pydantic import BaseModel
-from core.loggers.logger_manager import app_logger, logger_manager
+from core.loggers.manager import app_logger, logger_manager
 
 
 class DBConfig(BaseModel):

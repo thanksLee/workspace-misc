@@ -1,4 +1,4 @@
-from .config_loader import ConfigLoader
+from .loader import ConfigLoader
 
 config_loader = ConfigLoader('.streamlit/config.toml')
 

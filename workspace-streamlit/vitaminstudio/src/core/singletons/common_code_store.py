@@ -1,11 +1,11 @@
 from threading import Lock
 from typing import Optional, List
 
-from common.schemas.vo.common_code_vo import CommonCodeVO
-from core.loggers.logger_manager import app_logger
+from common.schemas.vo.common_code import CommonCodeVO
+from core.loggers.manager import app_logger
 from core.exceptions import InstanceNotLoadError
 
-from .singleton_meta import SingletonMeta
+from .meta import SingletonMeta
 
 
 class CommonCodeStore(metaclass=SingletonMeta):
