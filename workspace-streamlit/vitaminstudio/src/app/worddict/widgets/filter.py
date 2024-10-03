@@ -1,6 +1,7 @@
 import streamlit as st
 from typing import Union
 
+from common.schemas.dto.page_navigation import PageNaviagtionDTO
 
 from ..schemas.dto.response import CommonResponseDTO, WordDictReponseDTO
 from ..schemas.dto.request import WordDictListRequestDto
@@ -29,6 +30,9 @@ class WordDictFilterForm:
             search_submit = self.render_search_section(col_4, col_5, col_6)
 
             if search_submit:
+                st.session_state['current_paging_info'] = None
+                st.session_state['current_display_cnt'] = None
+                st.session_state['current_page_idx'] = None
                 ret_val = self.handle_search()
                 return ret_val
 
@@ -75,22 +79,37 @@ class WordDictFilterForm:
                 delete_word_btn = st.form_submit_button('delete', use_container_width=True)
 
             with col_10:
-                self._list_count_option = st.selectbox('', ('20', '50', '100', '200', 'all'), index=1,
+                self._list_count_option = st.selectbox('', ('20', '50', '100', '200', 'all'), index=0,
                                                        label_visibility='collapsed')
             return new_word_btn, delete_word_btn
 
     def handle_search(self):
         """검색 처리 메서드"""
+        display_cnt: int = 20
+        page_idx: int = st.session_state.get('current_page_idx', None)
+
+        if self._list_count_option:
+            if self._list_count_option.lower() == 'all':
+                display_cnt = 99999999999999999
+            else:
+                display_cnt = int(self._list_count_option)
+
+        st.session_state['current_display_cnt'] = display_cnt
+        if not page_idx:
+            page_idx = 1
+
         req_param = WordDictListRequestDto(
             display_cate_nm=self._word_dict_cate_option,
             search_txt=self._search_text,
             filter_list=self._filter_options,
             word_flg_cd_nm=self._word_flg_option,
             kor_word_type_cd_nm=self._word_type_option,
-            paging_display_cnt=self._list_count_option
+            paging_display_cnt=display_cnt,
+            paging_page_idx=page_idx
         )
 
         ret_val = load_word_dict_list(self._db_url, req_param)
+
         if ret_val:
             return ret_val.detail
         else:
@@ -105,7 +124,7 @@ class WordDictFilterForm:
         st.write("Delete word handling logic goes here...")
 
 
-@st.cache_data
+@ st.cache_data
 def load_word_dict_cate_list(db_url: str) -> list:
     # get word dict cate list
     req_wordic_cate_list = WordDictController(db_url).handle_word_dict_cate_list()
@@ -114,7 +133,7 @@ def load_word_dict_cate_list(db_url: str) -> list:
     return ret_val
 
 
-@st.cache_data
+@ st.cache_data
 def load_word_flg_list(db_url: str) -> list:
     req_word_flg_list = WordDictController(db_url).handle_word_flg_list()
 
@@ -122,7 +141,7 @@ def load_word_flg_list(db_url: str) -> list:
     return ret_val
 
 
-@st.cache_data
+@ st.cache_data
 def load_word_type_list(db_url: str) -> list:
     req_word_type_list = WordDictController(db_url).handle_word_type_list()
 

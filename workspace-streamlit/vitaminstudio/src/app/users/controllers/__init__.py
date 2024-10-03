@@ -1,7 +1,7 @@
 from common.controllers import CommonController
 
 from core.databases.server.db_connection_manager import db_manager
-from core.sessions.schemas.current_db_conn import CurrentDBConnSchema
+from core.sessions.schemas import CurrentDBConnDTO
 
 from ..services.user_init import UserInitService
 from ..services.user_login import UserLoginService
@@ -12,12 +12,12 @@ class UserController(CommonController):
     def __init__(self, db_url: str):
         super().__init__(db_url)
 
-    def handle_db_conn_click(self, db_conn_info: CurrentDBConnSchema):
+    def handle_db_conn_click(self, db_conn_info: CurrentDBConnDTO):
         self.__db_initialize(db_conn_info)
         ret_val = self.__create_db(db_conn_info.db_type, db_conn_info.db_schema)
         return ret_val
 
-    def __db_initialize(self, db_conn_info: CurrentDBConnSchema):
+    def __db_initialize(self, db_conn_info: CurrentDBConnDTO):
         ''' Server Database에 접속할 수 있는 connection을 생성하는 함수'''
         db_manager.add_db_manager(db_conn_info.db_type, db_conn_info.db_url)
 

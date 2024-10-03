@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 from common.schemas import BaseSchema
 from core.loggers.manager import app_logger
-from core.singletons.common_code_store import CommonCodeStore
+from core.singletons.common_code import CommonCodeStore
 from core.exceptions import CommonCodeValueError
 
 

@@ -1,4 +1,4 @@
-from core.singletons.common_code_store import CommonCodeStore
+from core.singletons.common_code import CommonCodeStore
 from core.exceptions import CommonCodeValueError
 import json
 

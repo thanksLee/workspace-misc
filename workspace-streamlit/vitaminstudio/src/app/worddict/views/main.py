@@ -1,5 +1,7 @@
 import streamlit as st
 
+from core.sessions.session_state_manager import SessionStateManager
+
 from .word_dict import WordDictView
 from .term_dict import TermDictView
 from .domain_dict import DomainDictView

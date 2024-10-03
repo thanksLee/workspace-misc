@@ -106,7 +106,7 @@ class WordDictMapper(CommonMapper):
                                         and x.p_eng_word_seq is not null
                                     )
                     ) a
-            limit :paging_display_cnt offset :paging_page_idx
+            limit :paging_display_cnt offset (:paging_display_cnt * (:paging_page_idx - 1))
         '''
         qry_param = {
             'cate_seq': params.cate_seq,

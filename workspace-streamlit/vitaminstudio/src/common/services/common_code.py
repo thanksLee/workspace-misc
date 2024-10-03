@@ -1,7 +1,7 @@
 from common.services import CommonService
 from common.mappers.common_code import CommonCodeMapper
 
-from core.singletons.common_code_store import CommonCodeStore
+from core.singletons.common_code import CommonCodeStore
 from core.exceptions import InstanceNotLoadError
 
 

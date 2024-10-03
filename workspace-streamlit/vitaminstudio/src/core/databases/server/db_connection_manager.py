@@ -3,7 +3,7 @@ from typing import Union
 from core.databases.server.base_db_manager import DBConfig
 from core.databases.server.db_managers import SQLiteManager, PostgreSQLManager, OracleManager
 from core.constants.global_enum import ServerDB
-from core.singletons.db_connection_store import DBConnectionStore
+from core.singletons.db_connection import DBConnectionStore
 
 
 class DBConnectionManager:

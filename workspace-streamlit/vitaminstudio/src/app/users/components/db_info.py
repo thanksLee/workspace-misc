@@ -1,6 +1,6 @@
 import streamlit as st
 
-from core.sessions.schemas.current_db_conn import CurrentDBConnSchema
+from core.sessions.schemas import CurrentDBConnDTO
 from core.constants.global_enum import ServerType, SERVER_TYPE, SERVER_DB, ServerDB
 from core.configs.base import local_db_config
 from core.utilities.files import get_file_list
@@ -118,12 +118,12 @@ class DBInfoForm:
 
     def __build_db_conn(self):
         with st.spinner('VitaminStudio Table 및 데이터 생성중...'):
-            db_conn_info = CurrentDBConnSchema(server_type=self._server_type,
-                                               db_type=self._db_type,
-                                               db_url=self._db_url,
-                                               db_conn_status=False,
-                                               db_schema=self._db_schema
-                                               )
+            db_conn_info = CurrentDBConnDTO(server_type=self._server_type,
+                                            db_type=self._db_type,
+                                            db_url=self._db_url,
+                                            db_conn_status=False,
+                                            db_schema=self._db_schema
+                                            )
 
             user_controller = UserController(db_conn_info.db_url)
             ret_val = user_controller.handle_db_conn_click(db_conn_info)

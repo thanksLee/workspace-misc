@@ -3,7 +3,7 @@ from pydantic import ValidationError
 from typing import Optional
 
 from core.sessions.session_state_manager import SessionStateManager
-from core.sessions.schemas.current_db_conn import CurrentDBConnSchema
+from core.sessions.schemas import CurrentDBConnDTO
 
 from ..controllers import UserController
 from ..schemas.dto.request import LoginFormDTO
@@ -33,10 +33,10 @@ class LoginForm:
             if submit_btn:
                 self._handle_login(db_conn_info)
 
-    def _get_db_conn_info(self) -> Optional[CurrentDBConnSchema]:
-        ret_val: CurrentDBConnSchema = None
+    def _get_db_conn_info(self) -> Optional[CurrentDBConnDTO]:
+        ret_val: CurrentDBConnDTO = None
         if self._current_db_conn is not None:
-            ret_val = CurrentDBConnSchema(
+            ret_val = CurrentDBConnDTO(
                 server_type=self._current_db_conn['server_type'],
                 db_type=self._current_db_conn['db_type'],
                 db_url=self._current_db_conn['db_url'],
@@ -44,7 +44,7 @@ class LoginForm:
             )
         return ret_val
 
-    def _handle_login(self, db_conn_info: CurrentDBConnSchema):
+    def _handle_login(self, db_conn_info: CurrentDBConnDTO):
         if db_conn_info is None:
             st.error(":boom: VitaminStudio DB에 접속되지 않았습니다.")
         else:

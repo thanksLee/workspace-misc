@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field, field_validator
 from typing import Optional
 
 
-class CurrentDBConnSchema(BaseModel):
+class CurrentDBConnDTO(BaseModel):
     server_type: str = Field(..., example='local')
     db_type: str = Field(..., example='sqlite')
     db_url: str = Field(..., example='sqlite:///vitamin.db')
@@ -15,3 +15,16 @@ class CurrentDBConnSchema(BaseModel):
         if isinstance(v, str):
             return v.lower()
         return v
+
+
+class CurrentUserDTO(BaseModel):
+    pass
+
+
+class CurrentPageNavigationDTO(BaseModel):
+    pass
+
+
+class CurrentInfoDTO(BaseModel):
+    db_conn: CurrentDBConnDTO
+    user: CurrentUserDTO

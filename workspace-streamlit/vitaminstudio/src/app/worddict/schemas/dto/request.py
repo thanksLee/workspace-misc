@@ -18,15 +18,8 @@ class WordDictListRequestDto(BaseModel):
     eng_word_nm: Optional[str] = Field(title='영문 단어 명', default='')
     eng_abbr_nm: Optional[str] = Field(title='영문 약어 명', default='')
     # paging 관련
-    paging_display_cnt: Optional[Union[int, str]] = Field(title='화면표시 개수', default=20)
-    paging_page_idx: Optional[int] = Field(title="페이지 인덱스", default=0)
-
-    @field_validator('paging_display_cnt')
-    def validate_paging_display_cnt(cls, value):
-
-        if value == 'all' or value == 'ALL':
-            value = 9999999999
-        return value
+    paging_display_cnt: int = Field(title='화면표시 개수', default=20)
+    paging_page_idx: int = Field(title="페이지 인덱스", default=0)
 
     @model_validator(mode="after")
     def set_common_code(cls, values: 'WordDictListRequestDto'):

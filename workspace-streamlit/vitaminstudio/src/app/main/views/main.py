@@ -3,15 +3,17 @@ import streamlit as st
 from core.sessions.session_state_manager import SessionStateManager
 from core.constants.global_enum import MenuItem
 
+from common.views import CommonView
+
 from app.worddict.views.main import WordDictMainView
 from app.modelqc.views.main import ModelQCMainView
 
 
-class MainView:
-    def __init__(self):
+class MainView(CommonView):
+    def __init__(self, session_state_manager):
+        super().__init__(session_state_manager)
         self._word_dict_main_page = WordDictMainView()
         self._model_qc_main_page = ModelQCMainView()
-        self._session_state_manager = SessionStateManager
         self._current_menu_item = self._session_state_manager.get_session_state('current_menu_item')
 
     def _set_menu_item(self, menu_item: MenuItem):

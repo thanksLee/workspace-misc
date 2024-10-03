@@ -1,7 +1,7 @@
 from typing import Optional
 from common.services import CommonService
 from core.databases.server.transaction_manager import TransactionManager
-from core.singletons.common_code_store import CommonCodeStore
+from core.singletons.common_code import CommonCodeStore
 
 from ..mappers import WordDictMapper
 from ..schemas.dto.response import WordDictReponseDTO

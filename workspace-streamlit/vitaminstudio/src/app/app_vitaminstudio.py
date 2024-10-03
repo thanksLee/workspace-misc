@@ -17,8 +17,8 @@ st.set_page_config(
 
 
 class AppVitaminStudio:
-    def __init__(self):
-        self._session_state_manager = SessionStateManager()
+    def __init__(self, session_state_manager: SessionStateManager):
+        self._session_state_manager = session_state_manager
         self._app_logger = app_logger
 
     def setup_local_db(self):
@@ -37,7 +37,7 @@ class AppVitaminStudio:
 
     def render_main_pages(self):
         """ 로그인 후 사이드바에 페이지를 렌더링하는 함수 """
-        home_page = st.Page(MainView().render, title="VitaminStudio - Main")
+        home_page = st.Page(MainView(self._session_state_manager).render, title="VitaminStudio - Main")
 
         page = st.navigation([home_page])
         page.run()
@@ -75,4 +75,4 @@ class AppVitaminStudio:
 
 
 if __name__ == "__main__":
-    AppVitaminStudio().init()
+    AppVitaminStudio(SessionStateManager).init()

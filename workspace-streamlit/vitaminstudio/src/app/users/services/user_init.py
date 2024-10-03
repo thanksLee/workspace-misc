@@ -7,7 +7,7 @@ from common.services.common_code import CommonCodeService
 from core.configs.base import base_config
 from core.utilities.files import get_file_list, load_sql_file
 from core.exceptions import ExistsDatabase
-from core.sessions.schemas.current_db_conn import CurrentDBConnSchema
+from core.sessions.schemas import CurrentDBConnDTO
 from core.databases.server.transaction_manager import TransactionManager
 from core.constants.global_enum import ServerType
 from core.constants import CURRENT_DB_CONN
@@ -83,7 +83,7 @@ class UserInitService(CommonService):
     def set_db_conn_info(self):
         """DB 연결 정보를 설정하는 메서드."""
         db_session_url = self._tr_manager._session_factory.bind.url
-        current_db = CurrentDBConnSchema(
+        current_db = CurrentDBConnDTO(
             server_type=ServerType.LOCAL if db_session_url.host is None else ServerType.SERVER,
             db_type=db_session_url.drivername,
             db_url=str(db_session_url),
